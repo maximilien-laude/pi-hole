@@ -138,7 +138,7 @@ errorOutput() {
 defaultOutput() {
     # Source the setupvars config file
     # shellcheck disable=SC1091
-    source /etc/pihole/setupVars.conf
+    source /var/lib/pihole-system/etc/pihole/setupVars.conf
 
     versionOutput "pi-hole" "$@"
 
