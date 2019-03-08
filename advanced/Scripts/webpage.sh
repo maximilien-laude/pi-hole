@@ -17,7 +17,7 @@ readonly FTLconf="/etc/pihole/pihole-FTL.conf"
 # 03 -> wildcards
 readonly dhcpstaticconfig="/etc/dnsmasq.d/04-pihole-static-dhcp.conf"
 
-coltable="/opt/pihole/COL_TABLE"
+coltable="/var/lib/pihole-system/opt/pihole/COL_TABLE"
 if [[ -f ${coltable} ]]; then
     source ${coltable}
 fi
