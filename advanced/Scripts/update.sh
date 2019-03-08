@@ -161,7 +161,7 @@ main() {
         echo ""
         echo -e "  ${INFO} Pi-hole core files out of date, updating local repo."
         getGitFiles "${PI_HOLE_FILES_DIR}" "${PI_HOLE_GIT_URL}"
-        echo -e "  ${INFO} If you had made any changes in '/etc/.pihole/', they have been stashed using 'git stash'"
+        echo -e "  ${INFO} If you had made any changes in '/var/lib/pihole-system/etc/.pihole/', they have been stashed using 'git stash'"
     fi
 
     if [[ "${web_update}" == true ]]; then
