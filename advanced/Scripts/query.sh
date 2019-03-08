@@ -10,7 +10,7 @@
 # Please see LICENSE file for your rights under this license.
 
 # Globals
-piholeDir="/etc/pihole"
+piholeDir="/var/lib/pihole-system/etc/pihole"
 adListsList="$piholeDir/adlists.list"
 wildcardlist="/etc/dnsmasq.d/03-pihole-wildcard.conf"
 options="$*"
