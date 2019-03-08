@@ -25,7 +25,7 @@ domList=()
 listMain=""
 listAlt=""
 
-colfile="/opt/pihole/COL_TABLE"
+colfile="/var/lib/pihole-system/opt/pihole/COL_TABLE"
 source ${colfile}
 
 
