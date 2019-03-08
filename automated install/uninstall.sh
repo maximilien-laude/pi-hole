@@ -36,7 +36,7 @@ else
     fi
 fi
 
-readonly PI_HOLE_FILES_DIR="/etc/.pihole"
+readonly PI_HOLE_FILES_DIR="/var/lib/pihole-system/etc/.pihole"
 PH_TEST="true"
 source "${PI_HOLE_FILES_DIR}/automated install/basic-install.sh"
 # setupVars set in basic-install.sh
@@ -145,7 +145,7 @@ removeNoPurge() {
     ${SUDO} rm -f /etc/dnsmasq.d/01-pihole.conf &> /dev/null
     ${SUDO} rm -rf /var/log/*pihole* &> /dev/null
     ${SUDO} rm -rf /etc/pihole/ &> /dev/null
-    ${SUDO} rm -rf /etc/.pihole/ &> /dev/null
+    ${SUDO} rm -rf /var/lib/pihole-system/etc/.pihole/ &> /dev/null
     ${SUDO} rm -rf /opt/pihole/ &> /dev/null
     ${SUDO} rm -f /usr/local/bin/pihole &> /dev/null
     ${SUDO} rm -f /etc/bash_completion.d/pihole &> /dev/null
