@@ -10,11 +10,11 @@
 
 # Globals
 basename=pihole
-piholeDir=/etc/"${basename}"
+piholeDir=/var/lib/pihole-system/etc/"${basename}"
 whitelist="${piholeDir}"/whitelist.txt
 blacklist="${piholeDir}"/blacklist.txt
 
-readonly regexlist="/etc/pihole/regex.list"
+readonly regexlist="/var/lib/pihole-system/etc/pihole/regex.list"
 reload=false
 addmode=true
 verbose=true
