@@ -39,7 +39,7 @@ lighttpdConfig=/etc/lighttpd/lighttpd.conf
 coltable=/var/lib/pihole-system/opt/pihole/COL_TABLE
 
 # We store several other directories and
-webInterfaceGitUrl="https://github.com/pi-hole/AdminLTE.git"
+webInterfaceGitUrl="https://github.com/maximilien-laude/AdminLTE.git"
 webInterfaceDir="/var/www/html/admin"
 piholeGitUrl="https://github.com/maximilien-laude/pi-hole.git"
 PI_HOLE_LOCAL_REPO="/var/lib/pihole-system/etc/.pihole"
