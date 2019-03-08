@@ -21,7 +21,7 @@ source "${regexconverter}"
 basename="pihole"
 PIHOLE_COMMAND="/usr/local/bin/${basename}"
 
-piholeDir="/etc/${basename}"
+piholeDir="/var/lib/pihole-system/etc/${basename}"
 
 adListFile="${piholeDir}/adlists.list"
 adListDefault="${piholeDir}/adlists.default"
@@ -582,7 +582,7 @@ gravity_ParseBlacklistDomains() {
     cp "${piholeDir}/${preEventHorizon}" "${piholeDir}/${accretionDisc}"
   fi
 
-  # Move the file over as /etc/pihole/gravity.list so dnsmasq can use it
+  # Move the file over as /var/lib/pihole-system/etc/pihole/gravity.list so dnsmasq can use it
   output=$( { mv "${piholeDir}/${accretionDisc}" "${adList}"; } 2>&1 )
   status="$?"
 
@@ -597,7 +597,7 @@ gravity_ParseUserDomains() {
   if [[ ! -f "${blacklistFile}" ]]; then
     return 0
   fi
-  # Copy the file over as /etc/pihole/black.list so dnsmasq can use it
+  # Copy the file over as /var/lib/pihole-system/etc/pihole/black.list so dnsmasq can use it
   cp "${blacklistFile}" "${blackList}" 2> /dev/null || \
     echo -e "\\n  ${CROSS} Unable to move ${blacklistFile##*/} to ${piholeDir}"
 }
@@ -674,7 +674,7 @@ if [[ "${forceDelete:-}" == true ]]; then
   str="Deleting existing list cache"
   echo -ne "${INFO} ${str}..."
 
-  rm /etc/pihole/list.* 2> /dev/null || true
+  rm /var/lib/pihole-system/etc/pihole/list.* 2> /dev/null || true
   echo -e "${OVER}  ${TICK} ${str}"
 fi
 
