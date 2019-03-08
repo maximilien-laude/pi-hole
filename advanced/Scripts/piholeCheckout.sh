@@ -8,7 +8,7 @@
 # This file is copyright under the latest version of the EUPL.
 # Please see LICENSE file for your rights under this license.
 
-readonly PI_HOLE_FILES_DIR="/etc/.pihole"
+readonly PI_HOLE_FILES_DIR="/var/lib/pihole-system/etc/.pihole"
 PH_TEST="true"
 source "${PI_HOLE_FILES_DIR}/automated install/basic-install.sh"
 
