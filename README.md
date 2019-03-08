@@ -21,24 +21,11 @@ The Pi-hole[®](https://pi-hole.net/trademark-rules-and-brand-guidelines/) is a 
 <a href="https://travis-ci.org/pi-hole/pi-hole"><img src="https://travis-ci.org/pi-hole/pi-hole.svg?branch=development" alt="Travis Build Status"/></a>
 <a href="https://www.bountysource.com/trackers/3011939-pi-hole-pi-hole?utm_source=3011939&utm_medium=shield&utm_campaign=TRACKER_BADGE"><img src="https://www.bountysource.com/badge/tracker?tracker_id=3011939" alt="BountySource"/></a>
 
-## One-Step Automated Install
-Those who want to get started quickly and conveniently may install Pi-hole using the following command:
+Clone our repository and run
 
-#### `curl -sSL https://install.pi-hole.net | bash`
-
-## Alternative Install Methods
-[Piping to `bash` is controversial](https://pi-hole.net/2016/07/25/curling-and-piping-to-bash), as it prevents you from [reading code that is about to run](https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh) on your system. Therefore, we provide these alternative installation methods which allow code review before installation:
-
-### Method 1: Clone our repository and run
 ```
 git clone --depth 1 https://github.com/maximilien-laude/pi-hole.git Pi-hole
 cd "Pi-hole/automated install/"
-sudo bash basic-install.sh
-```
-
-### Method 2: Manually download the installer and run
-```
-wget -O basic-install.sh https://install.pi-hole.net
 sudo bash basic-install.sh
 ```
 
