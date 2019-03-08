@@ -208,8 +208,8 @@ get_init_stats() {
     fi
 
     # Test existence of setupVars config
-    if [[ -f "/etc/pihole/setupVars.conf" ]]; then
-        setupVars="/etc/pihole/setupVars.conf"
+    if [[ -f "/var/lib/pihole-system/etc/pihole/setupVars.conf" ]]; then
+        setupVars="/var/lib/pihole-system/etc/pihole/setupVars.conf"
     fi
 }
 
@@ -361,7 +361,7 @@ get_sys_stats() {
         ph_dhcp_range=$(seq -s "|" -f "${DHCP_START%.*}.%g" "${DHCP_START##*.}" "${DHCP_END##*.}")
 
         # Count dynamic leases from available range, and not static leases
-        ph_dhcp_num=$(grep -cE "$ph_dhcp_range" "/etc/pihole/dhcp.leases")
+        ph_dhcp_num=$(grep -cE "$ph_dhcp_range" "/var/lib/pihole-system/etc/pihole/dhcp.leases")
         ph_dhcp_percent=$(( ph_dhcp_num * 100 / ph_dhcp_max ))
     fi
 }
