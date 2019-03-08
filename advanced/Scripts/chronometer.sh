@@ -132,7 +132,7 @@ get_init_stats() {
     }
 
     # Set Colour Codes
-    coltable="/opt/pihole/COL_TABLE"
+    coltable="/var/lib/pihole-system/opt/pihole/COL_TABLE"
     if [[ -f "${coltable}" ]]; then
         source ${coltable}
     else
