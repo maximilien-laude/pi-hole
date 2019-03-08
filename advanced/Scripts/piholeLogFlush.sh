@@ -8,7 +8,7 @@
 # This file is copyright under the latest version of the EUPL.
 # Please see LICENSE file for your rights under this license.
 
-colfile="/opt/pihole/COL_TABLE"
+colfile="/var/lib/pihole-system/opt/pihole/COL_TABLE"
 source ${colfile}
 
 # Determine database location
@@ -16,13 +16,13 @@ source ${colfile}
 # Constructed to return nothing when
 # a) the setting is not present in the config file, or
 # b) the setting is commented out (e.g. "#DBFILE=...")
-FTLconf="/etc/pihole/pihole-FTL.conf"
+FTLconf="/var/lib/pihole-system/etc/pihole/pihole-FTL.conf"
 if [ -e "$FTLconf" ]; then
     DBFILE="$(sed -n -e 's/^\s*DBFILE\s*=\s*//p' ${FTLconf})"
 fi
 # Test for empty string. Use standard path in this case.
 if [ -z "$DBFILE" ]; then
-    DBFILE="/etc/pihole/pihole-FTL.db"
+    DBFILE="/var/lib/pihole-system/etc/pihole/pihole-FTL.db"
 fi
 
 if [[ "$@" != *"quiet"* ]]; then
@@ -32,7 +32,7 @@ if [[ "$@" == *"once"* ]]; then
     # Nightly logrotation
     if command -v /usr/sbin/logrotate >/dev/null; then
         # Logrotate once
-        /usr/sbin/logrotate --force /etc/pihole/logrotate
+        /usr/sbin/logrotate --force /var/lib/pihole-system/etc/pihole/logrotate
     else
         # Copy pihole.log over to pihole.log.1
         # and empty out pihole.log
@@ -46,8 +46,8 @@ else
     # Manual flushing
     if command -v /usr/sbin/logrotate >/dev/null; then
         # Logrotate twice to move all data out of sight of FTL
-        /usr/sbin/logrotate --force /etc/pihole/logrotate; sleep 3
-        /usr/sbin/logrotate --force /etc/pihole/logrotate
+        /usr/sbin/logrotate --force /var/lib/pihole-system/etc/pihole/logrotate; sleep 3
+        /usr/sbin/logrotate --force /var/lib/pihole-system/etc/pihole/logrotate
     else
         # Flush both pihole.log and pihole.log.1 (if existing)
         echo " " > /var/log/pihole.log
