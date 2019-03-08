@@ -10,7 +10,7 @@
 
 # Variables
 DEFAULT="-1"
-COREGITDIR="/etc/.pihole/"
+COREGITDIR="/var/lib/pihole-system/etc/.pihole/"
 WEBGITDIR="/var/www/html/admin/"
 
 getLocalVersion() {
