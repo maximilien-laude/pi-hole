@@ -8,7 +8,7 @@
 # This file is copyright under the latest version of the EUPL.
 # Please see LICENSE file for your rights under this license.
 
-source "/opt/pihole/COL_TABLE"
+source "/var/lib/pihole-system/opt/pihole/COL_TABLE"
 
 while true; do
     read -rp "  ${QST} Are you sure you would like to remove ${COL_WHITE}Pi-hole${COL_NC}? [y/N] " yn
@@ -144,9 +144,9 @@ removeNoPurge() {
     ${SUDO} rm -f /etc/dnsmasq.d/adList.conf &> /dev/null
     ${SUDO} rm -f /etc/dnsmasq.d/01-pihole.conf &> /dev/null
     ${SUDO} rm -rf /var/log/*pihole* &> /dev/null
-    ${SUDO} rm -rf /etc/pihole/ &> /dev/null
+    ${SUDO} rm -rf /var/lib/pihole-system/etc/pihole/ &> /dev/null
     ${SUDO} rm -rf /var/lib/pihole-system/etc/.pihole/ &> /dev/null
-    ${SUDO} rm -rf /opt/pihole/ &> /dev/null
+    ${SUDO} rm -rf /var/lib/pihole-system/opt/pihole/ &> /dev/null
     ${SUDO} rm -f /usr/local/bin/pihole &> /dev/null
     ${SUDO} rm -f /etc/bash_completion.d/pihole &> /dev/null
     ${SUDO} rm -f /etc/sudoers.d/pihole &> /dev/null
