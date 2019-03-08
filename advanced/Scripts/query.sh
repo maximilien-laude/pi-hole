@@ -20,7 +20,7 @@ exact=""
 blockpage=""
 matchType="match"
 
-colfile="/opt/pihole/COL_TABLE"
+colfile="/var/lib/pihole-system/opt/pihole/COL_TABLE"
 source "${colfile}"
 
 # Print each subdomain
