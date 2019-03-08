@@ -11,11 +11,11 @@ $serverName = htmlspecialchars($_SERVER["HTTP_HOST"]);
 // Remove external ipv6 brackets if any
 $serverName = preg_replace('/^\[(.*)\]$/', '${1}', $serverName);
 
-if (!is_file("/etc/pihole/setupVars.conf"))
-  die("[ERROR] File not found: <code>/etc/pihole/setupVars.conf</code>");
+if (!is_file("/var/lib/pihole-system/etc/pihole/setupVars.conf"))
+  die("[ERROR] File not found: <code>/var/lib/pihole-system/etc/pihole/setupVars.conf</code>");
 
 // Get values from setupVars.conf
-$setupVars = parse_ini_file("/etc/pihole/setupVars.conf");
+$setupVars = parse_ini_file("/var/lib/pihole-system/etc/pihole/setupVars.conf");
 $svPasswd = !empty($setupVars["WEBPASSWORD"]);
 $svEmail = (!empty($setupVars["ADMIN_EMAIL"]) && filter_var($setupVars["ADMIN_EMAIL"], FILTER_VALIDATE_EMAIL)) ? $setupVars["ADMIN_EMAIL"] : "";
 unset($setupVars);
@@ -104,18 +104,18 @@ if ($serverName === "pi.hole") {
 $bpAskAdmin = !empty($svEmail) ? '<a href="mailto:'.$svEmail.'?subject=Site Blocked: '.$serverName.'"></a>' : "<span/>";
 
 // Determine if at least one block list has been generated
-$blocklistglob = glob("/etc/pihole/list.0.*.domains");
+$blocklistglob = glob("/var/lib/pihole-system/etc/pihole/list.0.*.domains");
 if ($blocklistglob === array()) {
-    die("[ERROR] There are no domain lists generated lists within <code>/etc/pihole/</code>! Please update gravity by running <code>pihole -g</code>, or repair Pi-hole using <code>pihole -r</code>.");
+    die("[ERROR] There are no domain lists generated lists within <code>/var/lib/pihole-system/etc/pihole/</code>! Please update gravity by running <code>pihole -g</code>, or repair Pi-hole using <code>pihole -r</code>.");
 }
 
 // Set location of adlists file
-if (is_file("/etc/pihole/adlists.list")) {
-    $adLists = "/etc/pihole/adlists.list";
-} elseif (is_file("/etc/pihole/adlists.default")) {
-    $adLists = "/etc/pihole/adlists.default";
+if (is_file("/var/lib/pihole-system/etc/pihole/adlists.list")) {
+    $adLists = "/var/lib/pihole-system/etc/pihole/adlists.list";
+} elseif (is_file("/var/lib/pihole-system/etc/pihole/adlists.default")) {
+    $adLists = "/var/lib/pihole-system/etc/pihole/adlists.default";
 } else {
-    die("[ERROR] File not found: <code>/etc/pihole/adlists.list</code>");
+    die("[ERROR] File not found: <code>/var/lib/pihole-system/etc/pihole/adlists.list</code>");
 }
 
 // Get all URLs starting with "http" or "www" from adlists and re-index array numerically
