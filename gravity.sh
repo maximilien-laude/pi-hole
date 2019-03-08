@@ -13,9 +13,9 @@
 
 export LC_ALL=C
 
-coltable="/opt/pihole/COL_TABLE"
+coltable="/var/lib/pihole-system/opt/pihole/COL_TABLE"
 source "${coltable}"
-regexconverter="/opt/pihole/wildcard_regex_converter.sh"
+regexconverter="/var/lib/pihole-system/opt/pihole/wildcard_regex_converter.sh"
 source "${regexconverter}"
 
 basename="pihole"
