@@ -10,10 +10,10 @@
 # This file is copyright under the latest version of the EUPL.
 # Please see LICENSE file for your rights under this license.
 
-readonly setupVars="/etc/pihole/setupVars.conf"
+readonly setupVars="/var/lib/pihole-system/etc/pihole/setupVars.conf"
 readonly dnsmasqconfig="/etc/dnsmasq.d/01-pihole.conf"
 readonly dhcpconfig="/etc/dnsmasq.d/02-pihole-dhcp.conf"
-readonly FTLconf="/etc/pihole/pihole-FTL.conf"
+readonly FTLconf="/var/lib/pihole-system/etc/pihole/pihole-FTL.conf"
 # 03 -> wildcards
 readonly dhcpstaticconfig="/etc/dnsmasq.d/04-pihole-static-dhcp.conf"
 
@@ -319,7 +319,7 @@ ProcessDHCPSettings() {
 dhcp-authoritative
 dhcp-range=${DHCP_START},${DHCP_END},${leasetime}
 dhcp-option=option:router,${DHCP_ROUTER}
-dhcp-leasefile=/etc/pihole/dhcp.leases
+dhcp-leasefile=/var/lib/pihole-system/etc/pihole/dhcp.leases
 #quiet-dhcp
 " > "${dhcpconfig}"
 
@@ -385,7 +385,7 @@ SetWebUILayout() {
 }
 
 CustomizeAdLists() {
-    list="/etc/pihole/adlists.list"
+    list="/var/lib/pihole-system/etc/pihole/adlists.list"
 
     if [[ "${args[2]}" == "enable" ]]; then
         sed -i "\\@${args[3]}@s/^#http/http/g" "${list}"
@@ -539,13 +539,13 @@ addAudit()
     shift # skip "audit"
     for var in "$@"
     do
-        echo "${var}" >> /etc/pihole/auditlog.list
+        echo "${var}" >> /var/lib/pihole-system/etc/pihole/auditlog.list
     done
 }
 
 clearAudit()
 {
-    echo -n "" > /etc/pihole/auditlog.list
+    echo -n "" > /var/lib/pihole-system/etc/pihole/auditlog.list
 }
 
 SetPrivacyLevel() {
