@@ -39,7 +39,7 @@ function get_local_version() {
 
 # Source the setupvars config file
 # shellcheck disable=SC1091
-. /etc/pihole/setupVars.conf
+. /var/lib/pihole-system/etc/pihole/setupVars.conf
 
 if [[ "$2" == "remote" ]]; then
 
@@ -47,7 +47,7 @@ if [[ "$2" == "remote" ]]; then
         sleep 30
     fi
 
-    GITHUB_VERSION_FILE="/etc/pihole/GitHubVersions"
+    GITHUB_VERSION_FILE="/var/lib/pihole-system/etc/pihole/GitHubVersions"
 
     GITHUB_CORE_VERSION="$(json_extract tag_name "$(curl -s 'https://api.github.com/repos/pi-hole/pi-hole/releases/latest' 2> /dev/null)")"
     echo -n "${GITHUB_CORE_VERSION}" > "${GITHUB_VERSION_FILE}"
@@ -62,7 +62,7 @@ if [[ "$2" == "remote" ]]; then
 
 else
 
-    LOCAL_BRANCH_FILE="/etc/pihole/localbranches"
+    LOCAL_BRANCH_FILE="/var/lib/pihole-system/etc/pihole/localbranches"
 
     CORE_BRANCH="$(get_local_branch /var/lib/pihole-system/etc/.pihole)"
     echo -n "${CORE_BRANCH}" > "${LOCAL_BRANCH_FILE}"
@@ -75,7 +75,7 @@ else
     FTL_BRANCH="$(pihole-FTL branch)"
     echo -n " ${FTL_BRANCH}" >> "${LOCAL_BRANCH_FILE}"
 
-    LOCAL_VERSION_FILE="/etc/pihole/localversions"
+    LOCAL_VERSION_FILE="/var/lib/pihole-system/etc/pihole/localversions"
 
     CORE_VERSION="$(get_local_version /var/lib/pihole-system/etc/.pihole)"
     echo -n "${CORE_VERSION}" > "${LOCAL_VERSION_FILE}"
