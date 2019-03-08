@@ -64,7 +64,7 @@ else
 
     LOCAL_BRANCH_FILE="/etc/pihole/localbranches"
 
-    CORE_BRANCH="$(get_local_branch /etc/.pihole)"
+    CORE_BRANCH="$(get_local_branch /var/lib/pihole-system/etc/.pihole)"
     echo -n "${CORE_BRANCH}" > "${LOCAL_BRANCH_FILE}"
 
     if [[ "${INSTALL_WEB_INTERFACE}" == true ]]; then
@@ -77,7 +77,7 @@ else
 
     LOCAL_VERSION_FILE="/etc/pihole/localversions"
 
-    CORE_VERSION="$(get_local_version /etc/.pihole)"
+    CORE_VERSION="$(get_local_version /var/lib/pihole-system/etc/.pihole)"
     echo -n "${CORE_VERSION}" > "${LOCAL_VERSION_FILE}"
 
     if [[ "${INSTALL_WEB_INTERFACE}" == true ]]; then
