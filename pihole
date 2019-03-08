@@ -10,13 +10,13 @@
 # Please see LICENSE file for your rights under this license.
 
 readonly PI_HOLE_SCRIPT_DIR="/var/lib/pihole-system/opt/pihole"
-readonly gravitylist="/etc/pihole/gravity.list"
-readonly blacklist="/etc/pihole/black.list"
+readonly gravitylist="/var/lib/pihole-system/etc/pihole/gravity.list"
+readonly blacklist="/var/lib/pihole-system/etc/pihole/black.list"
 
 # setupVars is not readonly here because in some funcitons (checkout),
 # it might get set again when the installer is sourced. This causes an
 # error due to modifying a readonly variable.
-setupVars="/etc/pihole/setupVars.conf"
+setupVars="/var/lib/pihole-system/etc/pihole/setupVars.conf"
 
 readonly colfile="${PI_HOLE_SCRIPT_DIR}/COL_TABLE"
 source "${colfile}"
@@ -234,7 +234,7 @@ Options:
   elif [[ "${1}" == "off" ]]; then
     # Disable logging
     sed -i 's/^log-queries/#log-queries/' /etc/dnsmasq.d/01-pihole.conf
-    sed -i 's/^QUERY_LOGGING=true/QUERY_LOGGING=false/' /etc/pihole/setupVars.conf
+    sed -i 's/^QUERY_LOGGING=true/QUERY_LOGGING=false/' /var/lib/pihole-system/etc/pihole/setupVars.conf
     if [[ "${2}" != "noflush" ]]; then
       # Flush logs
       pihole -f
@@ -244,7 +244,7 @@ Options:
   elif [[ "${1}" == "on" ]]; then
     # Enable logging
     sed -i 's/^#log-queries/log-queries/' /etc/dnsmasq.d/01-pihole.conf
-    sed -i 's/^QUERY_LOGGING=false/QUERY_LOGGING=true/' /etc/pihole/setupVars.conf
+    sed -i 's/^QUERY_LOGGING=false/QUERY_LOGGING=true/' /var/lib/pihole-system/etc/pihole/setupVars.conf
     echo -e "  ${INFO} Enabling logging..."
     local str="Logging has been enabled!"
   else
@@ -271,13 +271,13 @@ statusFunc() {
   fi
 
   # Determine if Pi-hole's blocking is enabled
-  if grep -q "BLOCKING_ENABLED=false" /etc/pihole/setupVars.conf; then
+  if grep -q "BLOCKING_ENABLED=false" /var/lib/pihole-system/etc/pihole/setupVars.conf; then
     # A config is commented out
     case "${1}" in
       "web") echo 0;;
       *) echo -e "  ${CROSS} Pi-hole blocking is Disabled";;
     esac
-  elif grep -q "BLOCKING_ENABLED=true" /etc/pihole/setupVars.conf;  then
+  elif grep -q "BLOCKING_ENABLED=true" /var/lib/pihole-system/etc/pihole/setupVars.conf;  then
     # Configs are set
     case "${1}" in
       "web") echo 1;;
@@ -305,7 +305,7 @@ tailFunc() {
   echo -e "  ${INFO} Press Ctrl-C to exit"
 
   # Retrieve IPv4/6 addresses
-  source /etc/pihole/setupVars.conf
+  source /var/lib/pihole-system/etc/pihole/setupVars.conf
 
   # Strip date from each line
   # Colour blocklist/blacklist/wildcard entries as red
