@@ -25,7 +25,7 @@ CHECK_ONLY=false
 # shellcheck disable=SC1090
 source "${PI_HOLE_FILES_DIR}/automated install/basic-install.sh"
 # shellcheck disable=SC1091
-source "/opt/pihole/COL_TABLE"
+source "/var/lib/pihole-system/opt/pihole/COL_TABLE"
 
 # is_repo() sourced from basic-install.sh
 # make_repo() sourced from basic-install.sh
