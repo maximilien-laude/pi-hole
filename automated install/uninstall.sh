@@ -92,7 +92,7 @@ removeAndPurge() {
     done
 
     # Remove dnsmasq config files
-    ${SUDO} rm -f /etc/dnsmasq.conf /etc/dnsmasq.conf.orig /etc/dnsmasq.d/*-pihole*.conf &> /dev/null
+    ${SUDO} rm -f /etc/dnsmasq.conf /etc/dnsmasq.conf.orig /var/lib/pihole-system/etc/dnsmasq.d/*-pihole*.conf &> /dev/null
     echo -e "  ${TICK} Removing dnsmasq config files"
 
     # Call removeNoPurge to remove Pi-hole specific files
@@ -141,8 +141,8 @@ removeNoPurge() {
         fi
     fi
 
-    ${SUDO} rm -f /etc/dnsmasq.d/adList.conf &> /dev/null
-    ${SUDO} rm -f /etc/dnsmasq.d/01-pihole.conf &> /dev/null
+    ${SUDO} rm -f /var/lib/pihole-system/etc/dnsmasq.d/adList.conf &> /dev/null
+    ${SUDO} rm -f /var/lib/pihole-system/etc/dnsmasq.d/01-pihole.conf &> /dev/null
     ${SUDO} rm -rf /var/log/*pihole* &> /dev/null
     ${SUDO} rm -rf /var/lib/pihole-system/etc/pihole/ &> /dev/null
     ${SUDO} rm -rf /var/lib/pihole-system/etc/.pihole/ &> /dev/null
