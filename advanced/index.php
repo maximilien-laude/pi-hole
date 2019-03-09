@@ -205,7 +205,7 @@ $wlOutputClass = (isset($wlInfo) && $wlInfo === "recentwl") ? $wlInfo : "hidden"
 $wlOutput = (isset($wlInfo) && $wlInfo !== "recentwl") ? "<a href='http://$wlInfo'>$wlInfo</a>" : "";
 
 // Get Pi-hole Core version
-$phVersion = exec("cd /etc/.pihole/ && git describe --long --tags");
+$phVersion = exec("cd /var/lib/pihole-system/etc/.pihole/ && git describe --long --tags");
 
 // Print $execTime on development branches
 // Testing for - is marginally faster than "git rev-parse --abbrev-ref HEAD"
