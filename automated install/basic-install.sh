@@ -1827,7 +1827,7 @@ installLogrotate() {
     # Rasbian and Ubuntu at the same time. Hence, we have to
     # customize the logrotate script here in order to reflect
     # the local properties of the /var/log directory
-    logusergroup="$(stat -c '%U %G' /tmp/pihole-logs/var/log)"
+    logusergroup="$(stat -c '%U %G' /var/log)"
     # If the variable has a value,
     if [[ ! -z "${logusergroup}" ]]; then
         #
