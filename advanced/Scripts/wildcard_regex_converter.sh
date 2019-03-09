@@ -10,7 +10,7 @@
 
 # regexFile set in gravity.sh
 
-wildcardFile="/etc/dnsmasq.d/03-pihole-wildcard.conf"
+wildcardFile="/var/lib/pihole-system/etc/dnsmasq.d/03-pihole-wildcard.conf"
 
 convert_wildcard_to_regex() {
     if [ ! -f "${wildcardFile}" ]; then
