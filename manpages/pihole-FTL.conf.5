@@ -5,7 +5,7 @@ pihole-FTL.conf - FTL's config file
 .br
 .SH "DESCRIPTION"
 
-/etc/pihole/pihole-FTL.conf will be read by \fBpihole-FTL(8)\fR on startup.
+/var/lib/pihole-system/etc/pihole/pihole-FTL.conf will be read by \fBpihole-FTL(8)\fR on startup.
 .br
 
 \fBSOCKET_LISTENING=localonly|all\fR
@@ -45,7 +45,7 @@ pihole-FTL.conf - FTL's config file
     How often do we store queries in FTL's database [minutes]?
 .br
 
-\fBDBFILE=/etc/pihole/pihole-FTL.db\fR
+\fBDBFILE=/var/lib/pihole-system/etc/pihole/pihole-FTL.db\fR
 .br
     Specify path and filename of FTL's SQLite long-term database.
 .br
