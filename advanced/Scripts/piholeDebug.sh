@@ -65,7 +65,7 @@ TRICORDER_SSL_PORT_NUMBER=9998
 # https://discourse.pi-hole.net/t/what-files-does-pi-hole-use/1684
 CORE_GIT_DIRECTORY="/var/lib/pihole-system/etc/.pihole"
 CRON_D_DIRECTORY="/etc/cron.d"
-DNSMASQ_D_DIRECTORY="/etc/dnsmasq.d"
+DNSMASQ_D_DIRECTORY="/var/lib/pihole-system/etc/dnsmasq.d"
 PIHOLE_DIRECTORY="/var/lib/pihole-system/etc/pihole"
 PIHOLE_SCRIPTS_DIRECTORY="/var/lib/pihole-system/opt/pihole"
 BIN_DIRECTORY="/usr/local/bin"
