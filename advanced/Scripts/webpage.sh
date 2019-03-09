@@ -11,11 +11,11 @@
 # Please see LICENSE file for your rights under this license.
 
 readonly setupVars="/var/lib/pihole-system/etc/pihole/setupVars.conf"
-readonly dnsmasqconfig="/etc/dnsmasq.d/01-pihole.conf"
-readonly dhcpconfig="/etc/dnsmasq.d/02-pihole-dhcp.conf"
+readonly dnsmasqconfig="/var/lib/pihole-system/etc/dnsmasq.d/01-pihole.conf"
+readonly dhcpconfig="/var/lib/pihole-system/etc/dnsmasq.d/02-pihole-dhcp.conf"
 readonly FTLconf="/var/lib/pihole-system/etc/pihole/pihole-FTL.conf"
 # 03 -> wildcards
-readonly dhcpstaticconfig="/etc/dnsmasq.d/04-pihole-static-dhcp.conf"
+readonly dhcpstaticconfig="/var/lib/pihole-system/etc/dnsmasq.d/04-pihole-static-dhcp.conf"
 
 coltable="/var/lib/pihole-system/opt/pihole/COL_TABLE"
 if [[ -f ${coltable} ]]; then
