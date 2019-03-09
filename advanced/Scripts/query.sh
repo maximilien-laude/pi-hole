@@ -12,7 +12,7 @@
 # Globals
 piholeDir="/var/lib/pihole-system/etc/pihole"
 adListsList="$piholeDir/adlists.list"
-wildcardlist="/etc/dnsmasq.d/03-pihole-wildcard.conf"
+wildcardlist="/var/lib/pihole-system/etc/dnsmasq.d/03-pihole-wildcard.conf"
 options="$*"
 adlist=""
 all=""
