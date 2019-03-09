@@ -1214,7 +1214,7 @@ version_check_dnsmasq() {
     local dnsmasq_pihole_id_string="addn-hosts=/var/lib/pihole-system/etc/pihole/gravity.list"
     local dnsmasq_original_config="${PI_HOLE_LOCAL_REPO}/advanced/dnsmasq.conf.original"
     local dnsmasq_pihole_01_snippet="${PI_HOLE_LOCAL_REPO}/advanced/01-pihole.conf"
-    local dnsmasq_pihole_01_location="/etc/dnsmasq.d/01-pihole.conf"
+    local dnsmasq_pihole_01_location="/var/lib/pihole-system/etc/dnsmasq.d/01-pihole.conf"
 
     # If the dnsmasq config file exists
     if [[ -f "${dnsmasq_conf}" ]]; then
@@ -1243,14 +1243,14 @@ version_check_dnsmasq() {
         printf "%b  %b No dnsmasq.conf found... restoring default dnsmasq.conf...\\n" "${OVER}"  "${TICK}"
     fi
 
-    printf "  %b Copying 01-pihole.conf to /etc/dnsmasq.d/01-pihole.conf..." "${INFO}"
+    printf "  %b Copying 01-pihole.conf to /var/lib/pihole-system/etc/dnsmasq.d/01-pihole.conf..." "${INFO}"
     # Check to see if dnsmasq directory exists (it may not due to being a fresh install and dnsmasq no longer being a dependency)
-    if [[ ! -d "/etc/dnsmasq.d"  ]];then
-        mkdir "/etc/dnsmasq.d"
+    if [[ ! -d "/var/lib/pihole-system/etc/dnsmasq.d"  ]];then
+        mkdir "/var/lib/pihole-system/etc/dnsmasq.d"
     fi
     # Copy the new Pi-hole DNS config file into the dnsmasq.d directory
     cp ${dnsmasq_pihole_01_snippet} ${dnsmasq_pihole_01_location}
-    printf "%b  %b Copying 01-pihole.conf to /etc/dnsmasq.d/01-pihole.conf\\n" "${OVER}"  "${TICK}"
+    printf "%b  %b Copying 01-pihole.conf to /var/lib/pihole-system/etc/dnsmasq.d/01-pihole.conf\\n" "${OVER}"  "${TICK}"
     # Replace our placeholder values with the GLOBAL DNS variables that we populated earlier
     # First, swap in the interface to listen on
     sed -i "s/@INT@/$PIHOLE_INTERFACE/" ${dnsmasq_pihole_01_location}
@@ -1270,7 +1270,7 @@ version_check_dnsmasq() {
     fi
 
     #
-    sed -i 's/^#conf-dir=\/etc\/dnsmasq.d$/conf-dir=\/etc\/dnsmasq.d/' ${dnsmasq_conf}
+    sed -i 's/^#conf-dir=\/var\/lib\/pihole-system\/etc\/dnsmasq.d$/conf-dir=\/var\/lib\/pihole-system\/etc\/dnsmasq.d/' ${dnsmasq_conf}
 
     # If the user does not want to enable logging,
     if [[ "${QUERY_LOGGING}" == false ]] ; then
@@ -2219,14 +2219,14 @@ disable_dnsmasq() {
     fi
 
     # Backup existing /etc/dnsmasq.conf if present and ensure that
-    # /etc/dnsmasq.conf contains only "conf-dir=/etc/dnsmasq.d"
+    # /etc/dnsmasq.conf contains only "conf-dir=/var/lib/pihole-system/etc/dnsmasq.d"
     local conffile="/etc/dnsmasq.conf"
     if [[ -f "${conffile}" ]]; then
         printf "  %b Backing up %s to %s.old\\n" "${INFO}" "${conffile}" "${conffile}"
         mv "${conffile}" "${conffile}.old"
     fi
     # Create /etc/dnsmasq.conf
-    echo "conf-dir=/etc/dnsmasq.d" > "${conffile}"
+    echo "conf-dir=/var/lib/pihole-system/etc/dnsmasq.d" > "${conffile}"
 }
 
 get_binary_name() {
