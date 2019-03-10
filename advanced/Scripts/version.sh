@@ -11,7 +11,7 @@
 # Variables
 DEFAULT="-1"
 COREGITDIR="/var/lib/pihole-system/etc/.pihole/"
-WEBGITDIR="/var/www/html/admin/"
+WEBGITDIR="/var/lib/pihole-system/var/www/html/admin/"
 
 getLocalVersion() {
     # FTL requires a different method
