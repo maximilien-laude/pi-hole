@@ -92,6 +92,7 @@ removeAndPurge() {
     done
 
     # Remove dnsmasq config files
+    ${SUDO} unlink /etc/dnsmasq.d &> /dev/null
     ${SUDO} rm -f /etc/dnsmasq.conf /etc/dnsmasq.conf.orig /var/lib/pihole-system/etc/dnsmasq.d/*-pihole*.conf &> /dev/null
     echo -e "  ${TICK} Removing dnsmasq config files"
 
@@ -150,6 +151,7 @@ removeNoPurge() {
     ${SUDO} rm -f /usr/local/bin/pihole &> /dev/null
     ${SUDO} rm -f /etc/bash_completion.d/pihole &> /dev/null
     ${SUDO} rm -f /etc/sudoers.d/pihole &> /dev/null
+    ${SUDO} unlink /etc/pihole &> /dev/null
     echo -e "  ${TICK} Removed config files"
 
     # Restore Resolved
