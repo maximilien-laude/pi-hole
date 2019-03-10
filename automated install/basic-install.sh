@@ -1374,7 +1374,7 @@ installConfigs() {
         # Make sure the external.conf file exists, as lighttpd v1.4.50 crashes without it
         touch /etc/lighttpd/external.conf
         # if there is a custom block page in the html/pihole directory, replace 404 handler in lighttpd config
-        if [[ -f "/var/www/html/pihole/custom.php" ]]; then
+        if [[ -f "/var/lib/pihole-system/var/www/html/pihole/custom.php" ]]; then
             sed -i 's/^\(server\.error-handler-404\s*=\s*\).*$/\1"pihole\/custom\.php"/' /etc/lighttpd/lighttpd.conf
         fi
         # Make the directories if they do not exist and set the owners
@@ -1640,13 +1640,13 @@ installPiholeWeb() {
     local str="Creating directory for blocking page, and copying files"
     printf "  %b %s..." "${INFO}" "${str}"
     # Install the directory
-    install -d /var/www/html/pihole
+    install -d /var/lib/pihole-system/var/www/html/pihole
     # and the blockpage
-    install -D ${PI_HOLE_LOCAL_REPO}/advanced/{index,blockingpage}.* /var/www/html/pihole/
+    install -D ${PI_HOLE_LOCAL_REPO}/advanced/{index,blockingpage}.* /var/lib/pihole-system/var/www/html/pihole/
 
     # Remove superseded file
-    if [[ -e "/var/www/html/pihole/index.js" ]]; then
-        rm "/var/www/html/pihole/index.js"
+    if [[ -e "/var/lib/pihole-system/var/www/html/pihole/index.js" ]]; then
+        rm "/var/lib/pihole-system/var/www/html/pihole/index.js"
     fi
 
     printf "%b  %b %s\\n" "${OVER}" "${TICK}" "${str}"
@@ -1654,9 +1654,9 @@ installPiholeWeb() {
     local str="Backing up index.lighttpd.html"
     printf "  %b %s..." "${INFO}" "${str}"
     # If the default index file exists,
-    if [[ -f "/var/www/html/index.lighttpd.html" ]]; then
+    if [[ -f "/var/lib/pihole-system/var/www/html/index.lighttpd.html" ]]; then
         # back it up
-        mv /var/www/html/index.lighttpd.html /var/www/html/index.lighttpd.orig
+        mv /var/lib/pihole-system/var/www/html/index.lighttpd.html /var/lib/pihole-system/var/www/html/index.lighttpd.orig
         printf "%b  %b %s\\n" "${OVER}" "${TICK}" "${str}"
     # Otherwise,
     else
@@ -1866,15 +1866,16 @@ installPihole() {
 
     # If the user wants to install the Web interface,
     if [[ "${INSTALL_WEB_INTERFACE}" == true ]]; then
-        if [[ ! -d "/var/www/html" ]]; then
+        if [[ ! -d "/var/lib/pihole-system/var/www/html" ]]; then
             # make the Web directory if necessary
-            mkdir -p /var/www/html
+            mkdir -p /var/lib/pihole-system/var/www/html
+            ln -s /var/lib/pihole-system/var/www/html /var/www/html
         fi
 
         if [[ "${INSTALL_WEB_SERVER}" == true ]]; then
             # Set the owner and permissions
-            chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/www/html
-            chmod 775 /var/www/html
+            chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/lib/pihole-system/var/www/html
+            chmod 775 /var/lib/pihole-system/var/www/html
             # Give pihole access to the Web server group
             usermod -a -G ${LIGHTTPD_GROUP} pihole
             # If the lighttpd command is executable,
