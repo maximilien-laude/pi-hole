@@ -1247,6 +1247,7 @@ version_check_dnsmasq() {
     # Check to see if dnsmasq directory exists (it may not due to being a fresh install and dnsmasq no longer being a dependency)
     if [[ ! -d "/var/lib/pihole-system/etc/dnsmasq.d"  ]];then
         mkdir "/var/lib/pihole-system/etc/dnsmasq.d"
+         ln -s /var/lib/pihole-system/etc/dnsmasq.d /etc/dnsmasq.d
     fi
     # Copy the new Pi-hole DNS config file into the dnsmasq.d directory
     cp ${dnsmasq_pihole_01_snippet} ${dnsmasq_pihole_01_location}
