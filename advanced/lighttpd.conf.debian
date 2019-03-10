@@ -29,12 +29,12 @@ server.modules = (
 server.document-root        = "/var/www/html"
 server.error-handler-404    = "pihole/index.php"
 server.upload-dirs          = ( "/var/cache/lighttpd/uploads" )
-server.errorlog             = "/tmp/lighttpd-error.log"
+# server.errorlog             = "/tmp/lighttpd-error.log"
 server.pid-file             = "/var/run/lighttpd.pid"
 server.username             = "www-data"
 server.groupname            = "www-data"
 server.port                 = 80
-accesslog.filename          = "/tmp/lighttpd-access.log"
+# accesslog.filename          = "/tmp/lighttpd-access.log"
 accesslog.format            = "%{%s}t|%V|%r|%s|%b"
 
 index-file.names            = ( "index.php", "index.html", "index.lighttpd.html" )
