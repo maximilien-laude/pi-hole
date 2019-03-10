@@ -1826,8 +1826,8 @@ installLogrotate() {
     # a static logrotate file that will work with e.g.
     # Rasbian and Ubuntu at the same time. Hence, we have to
     # customize the logrotate script here in order to reflect
-    # the local properties of the /var/log directory
-    logusergroup="$(stat -c '%U %G' /var/log)"
+    # the local properties of the /tmp directory
+    logusergroup="$(stat -c '%U %G' /tmp)"
     # If the variable has a value,
     if [[ ! -z "${logusergroup}" ]]; then
         #
