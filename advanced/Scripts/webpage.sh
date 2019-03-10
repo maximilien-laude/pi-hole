@@ -530,7 +530,7 @@ Interfaces:
 
 Teleporter() {
     local datetimestamp=$(date "+%Y-%m-%d_%H-%M-%S")
-    php /var/www/html/admin/scripts/pi-hole/php/teleporter.php > "pi-hole-teleporter_${datetimestamp}.zip"
+    php /var/lib/pihole-system/var/www/html/admin/scripts/pi-hole/php/teleporter.php > "pi-hole-teleporter_${datetimestamp}.zip"
 }
 
 addAudit()
