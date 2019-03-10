@@ -32,8 +32,10 @@ start() {
     touch /run/pihole-FTL.pid /run/pihole-FTL.port
     touch /var/lib/pihole-system/etc/pihole/dhcp.leases
     mkdir -p /var/run/pihole
-    mkdir -p /var/log/pihole
-    chown pihole:pihole /var/run/pihole /var/log/pihole
+    # mkdir -p /var/log/pihole
+    mkdir -p /tmp/pihole
+    # chown pihole:pihole /var/run/pihole /var/log/pihole
+    chown pihole:pihole /var/run/pihole /tmp/pihole
     # Remove possible leftovers from previous pihole-FTL processes
     rm -f /dev/shm/FTL-* 2> /dev/null
     rm /var/run/pihole/FTL.sock 2> /dev/null
