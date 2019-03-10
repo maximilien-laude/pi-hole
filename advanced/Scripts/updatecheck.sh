@@ -70,7 +70,7 @@ else
     echo -n "${CORE_BRANCH}" > "${LOCAL_BRANCH_FILE}"
 
     if [[ "${INSTALL_WEB_INTERFACE}" == true ]]; then
-        WEB_BRANCH="$(get_local_branch /var/www/html/admin)"
+        WEB_BRANCH="$(get_local_branch /var/lib/pihole-system/var/www/html/admin)"
         echo -n " ${WEB_BRANCH}" >> "${LOCAL_BRANCH_FILE}"
     fi
 
@@ -83,7 +83,7 @@ else
     echo -n "${CORE_VERSION}" > "${LOCAL_VERSION_FILE}"
 
     if [[ "${INSTALL_WEB_INTERFACE}" == true ]]; then
-        WEB_VERSION="$(get_local_version /var/www/html/admin)"
+        WEB_VERSION="$(get_local_version /var/lib/pihole-system/var/www/html/admin)"
         echo -n " ${WEB_VERSION}" >> "${LOCAL_VERSION_FILE}"
     fi
 
