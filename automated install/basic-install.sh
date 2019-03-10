@@ -2491,6 +2491,7 @@ main() {
         welcomeDialogs
         # Create directory for Pi-hole storage
         mkdir -p /var/lib/pihole-system/etc/pihole/
+        ln -s /var/lib/pihole-system/etc/pihole/  /etc/pihole 
         # Determine available interfaces
         get_available_interfaces
         # Find interfaces and let the user choose one
