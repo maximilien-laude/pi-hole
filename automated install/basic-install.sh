@@ -1378,10 +1378,10 @@ installConfigs() {
         # Make the directories if they do not exist and set the owners
         mkdir -p /var/run/lighttpd
         chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/run/lighttpd
-        mkdir -p /var/cache/lighttpd/compress
-        chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/cache/lighttpd/compress
-        mkdir -p /var/cache/lighttpd/uploads
-        chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/cache/lighttpd/uploads
+        # mkdir -p /var/cache/lighttpd/compress
+        # chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/cache/lighttpd/compress
+        # mkdir -p /var/cache/lighttpd/uploads
+        # chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/cache/lighttpd/uploads
     fi
 }
 
