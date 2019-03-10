@@ -26,7 +26,7 @@ if [ -z "$DBFILE" ]; then
 fi
 
 if [[ "$@" != *"quiet"* ]]; then
-    echo -ne "  ${INFO} Flushing /tmp/pihole.log ..."
+    echo -ne "  ${INFO} Flushing /var/log/pihole.log ..."
 fi
 if [[ "$@" == *"once"* ]]; then
     # Nightly logrotation
@@ -39,8 +39,8 @@ if [[ "$@" == *"once"* ]]; then
         # Note that moving the file is not an option, as
         # dnsmasq would happily continue writing into the
         # moved file (it will have the same file handler)
-        cp /tmp/pihole.log /tmp/pihole.log.1
-        echo " " > /tmp/pihole.log
+        cp /var/log/pihole.log /var/log/pihole.log.1
+        echo " " > /var/log/pihole.log
     fi
 else
     # Manual flushing
@@ -50,9 +50,9 @@ else
         /usr/sbin/logrotate --force /var/lib/pihole-system/etc/pihole/logrotate
     else
         # Flush both pihole.log and pihole.log.1 (if existing)
-        echo " " > /tmp/pihole.log
-        if [ -f /tmp/pihole.log.1 ]; then
-            echo " " > /tmp/pihole.log.1
+        echo " " > /var/log/pihole.log
+        if [ -f /var/log/pihole.log.1 ]; then
+            echo " " > /var/log/pihole.log.1
         fi
     fi
     # Delete most recent 24 hours from FTL's database, leave even older data intact (don't wipe out all history)
@@ -63,6 +63,6 @@ else
 fi
 
 if [[ "$@" != *"quiet"* ]]; then
-    echo -e "${OVER}  ${TICK} Flushed /tmp/pihole.log"
+    echo -e "${OVER}  ${TICK} Flushed /var/log/pihole.log"
     echo -e "  ${TICK} Deleted ${deleted} queries from database"
 fi
