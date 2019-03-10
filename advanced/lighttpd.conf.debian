@@ -26,7 +26,7 @@ server.modules = (
 	"mod_rewrite"
 )
 
-server.document-root        = "/var/www/html"
+server.document-root        = "/var/lib/pihole-system/var/www/html"
 server.error-handler-404    = "pihole/index.php"
 # server.upload-dirs          = ( "/var/cache/lighttpd/uploads" )
 server.errorlog             = "/tmp/lighttpd-error.log"
