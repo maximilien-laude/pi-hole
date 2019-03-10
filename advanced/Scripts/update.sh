@@ -12,7 +12,7 @@
 
 # Variables
 readonly ADMIN_INTERFACE_GIT_URL="https://github.com/maximilien-laude/AdminLTE.git"
-readonly ADMIN_INTERFACE_DIR="/var/www/html/admin"
+readonly ADMIN_INTERFACE_DIR="/var/lib/pihole-system/var/www/html/admin"
 readonly PI_HOLE_GIT_URL="https://github.com/maximilien-laude/pi-hole.git"
 readonly PI_HOLE_FILES_DIR="/var/lib/pihole-system/etc/.pihole"
 
@@ -168,7 +168,7 @@ main() {
         echo ""
         echo -e "  ${INFO} Pi-hole Web Admin files out of date, updating local repo."
         getGitFiles "${ADMIN_INTERFACE_DIR}" "${ADMIN_INTERFACE_GIT_URL}"
-        echo -e "  ${INFO} If you had made any changes in '/var/www/html/admin/', they have been stashed using 'git stash'"
+        echo -e "  ${INFO} If you had made any changes in '/var/lib/pihole-system/var/www/html/admin/', they have been stashed using 'git stash'"
     fi
 
     if [[ "${FTL_update}" == true ]]; then
