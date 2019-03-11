@@ -16,8 +16,7 @@ source "/var/lib/pihole-system/opt/pihole/COL_TABLE"
 if [ "$(id -u)" -ne 0 ]; then
         echo "[!] This script must run as root" >&2
         exit 1
-
-else
+fi
 
 readonly PI_HOLE_FILES_DIR="/var/lib/pihole-system/etc/.pihole"
 PH_TEST="true"
@@ -70,7 +69,6 @@ removeAndPurge() {
     echo -e "  ${TICK} Removing dnsmasq config files"
 
     # Call removeNoPurge to remove Pi-hole specific files
-    removeNoPurge
 }
 
 removeNoPurge() {
@@ -118,6 +116,9 @@ removeNoPurge() {
     ${SUDO} rm -f /etc/bash_completion.d/pihole &> /dev/null
     ${SUDO} rm -f /etc/sudoers.d/pihole &> /dev/null
     ${SUDO} unlink /etc/pihole &> /dev/null
+    ${SUDO} unlink /etc/dnsmasq.d &> /dev/null
+    ${SUDO} unlink /var/log &> /dev/null
+    ${SUDO} mkdir -p /var/log &> /dev/null
     echo -e "  ${TICK} Removed config files"
 
     # Restore Resolved
@@ -184,4 +185,3 @@ while true; do
     esac
 done
 
-fi
