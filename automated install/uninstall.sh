@@ -35,6 +35,12 @@ if [[ "${INSTALL_WEB_SERVER}" == true ]]; then
     DEPS+=("${PIHOLE_WEB_DEPS[@]}")
 fi
 
+package_check() {
+
+        dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -c "ok installed"
+
+}
+
 removeAndPurge() {
     # Purge dependencies
     echo ""
