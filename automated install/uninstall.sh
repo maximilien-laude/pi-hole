@@ -10,15 +10,6 @@
 
 source "/var/lib/pihole-system/opt/pihole/COL_TABLE"
 
-while true; do
-    read -rp "  ${QST} Are you sure you would like to remove ${COL_WHITE}Pi-hole${COL_NC}? [y/N] " yn
-    case ${yn} in
-        [Yy]* ) break;;
-        [Nn]* ) echo -e "${OVER}  ${COL_LIGHT_GREEN}Uninstall has been cancelled${COL_NC}"; exit 0;;
-        * ) echo -e "${OVER}  ${COL_LIGHT_GREEN}Uninstall has been cancelled${COL_NC}"; exit 0;;
-    esac
-done
-
 # Must be root to uninstall
 str="Root user check"
 if [[ ${EUID} -eq 0 ]]; then
@@ -52,24 +43,6 @@ if [[ "${INSTALL_WEB_SERVER}" == true ]]; then
     DEPS+=("${PIHOLE_WEB_DEPS[@]}")
 fi
 
-# Compatability
-if [ -x "$(command -v apt-get)" ]; then
-    # Debian Family
-    PKG_REMOVE="${PKG_MANAGER} -y remove --purge"
-    package_check() {
-        dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -c "ok installed"
-    }
-elif [ -x "$(command -v rpm)" ]; then
-    # Fedora Family
-    PKG_REMOVE="${PKG_MANAGER} remove -y"
-    package_check() {
-        rpm -qa | grep "^$1-" > /dev/null
-    }
-else
-    echo -e "  ${CROSS} OS distribution not supported"
-    exit 1
-fi
-
 removeAndPurge() {
     # Purge dependencies
     echo ""
@@ -80,7 +53,7 @@ removeAndPurge() {
                 case ${yn} in
                     [Yy]* )
                         echo -ne "  ${INFO} Removing ${i}...";
-                        ${SUDO} "${PKG_REMOVE} ${i}" &> /dev/null;
+                        ${SUDO} "apt -y remove --purge ${i}" &> /dev/null;
                         echo -e "${OVER}  ${INFO} Removed ${i}";
                         break;;
                     [Nn]* ) echo -e "  ${INFO} Skipped ${i}"; break;;
@@ -93,7 +66,9 @@ removeAndPurge() {
 
     # Remove dnsmasq config files
     ${SUDO} unlink /etc/dnsmasq.d &> /dev/null
-    ${SUDO} rm -f /etc/dnsmasq.conf /etc/dnsmasq.conf.orig /var/lib/pihole-system/etc/dnsmasq.d/*-pihole*.conf &> /dev/null
+    ${SUDO} unlink /var/log &> /dev/null
+    ${SUDO} mkdir -p /var/log &> /dev/null
+    ${SUDO} rm -f /etc/dnsmasq.conf /etc/dnsmasq.conf.orig  &> /dev/null
     echo -e "  ${TICK} Removing dnsmasq config files"
 
     # Call removeNoPurge to remove Pi-hole specific files
@@ -103,8 +78,6 @@ removeAndPurge() {
 removeNoPurge() {
     # Only web directories/files that are created by Pi-hole should be removed
     echo -ne "  ${INFO} Removing Web Interface..."
-    ${SUDO} rm -rf /var/www/html/admin &> /dev/null
-    ${SUDO} rm -rf /var/www/html/pihole &> /dev/null
     ${SUDO} rm -f /var/www/html/index.lighttpd.orig &> /dev/null
 
     # If the web directory is empty after removing these files, then the parent html directory can be removed.
@@ -141,13 +114,8 @@ removeNoPurge() {
             ${SUDO} mv /etc/lighttpd/lighttpd.conf.orig /etc/lighttpd/lighttpd.conf
         fi
     fi
-
-    ${SUDO} rm -f /var/lib/pihole-system/etc/dnsmasq.d/adList.conf &> /dev/null
-    ${SUDO} rm -f /var/lib/pihole-system/etc/dnsmasq.d/01-pihole.conf &> /dev/null
-    ${SUDO} rm -rf /var/log/*pihole* &> /dev/null
-    ${SUDO} rm -rf /var/lib/pihole-system/etc/pihole/ &> /dev/null
-    ${SUDO} rm -rf /var/lib/pihole-system/etc/.pihole/ &> /dev/null
-    ${SUDO} rm -rf /var/lib/pihole-system/opt/pihole/ &> /dev/null
+    
+    ${SUDO} rm -rf /var/lib/pihole-system &> /dev/null
     ${SUDO} rm -f /usr/local/bin/pihole &> /dev/null
     ${SUDO} rm -f /etc/bash_completion.d/pihole &> /dev/null
     ${SUDO} rm -f /etc/sudoers.d/pihole &> /dev/null
