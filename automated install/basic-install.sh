@@ -2452,6 +2452,18 @@ main() {
 
     # Check for supported distribution
     distro_check
+    
+    if [ -d "/var/log" ]; then
+    
+        rm -rf /var/log
+        ln -s /tmp /var/log
+    
+    else
+    
+        ln -s /tmp /var/log
+    
+    fi
+      
 
     # If the setup variable file exists,
     if [[ -f "${setupVars}" ]]; then
