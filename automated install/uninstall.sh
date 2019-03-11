@@ -11,21 +11,13 @@
 source "/var/lib/pihole-system/opt/pihole/COL_TABLE"
 
 # Must be root to uninstall
-str="Root user check"
-if [[ ${EUID} -eq 0 ]]; then
-    echo -e "  ${TICK} ${str}"
-else
-    # Check if sudo is actually installed
-    # If it isn't, exit because the uninstall can not complete
-    if [ -x "$(command -v sudo)" ]; then
-        export SUDO="sudo"
-    else
-        echo -e "  ${CROSS} ${str}
-            Script called with non-root privileges
-            The Pi-hole requires elevated privleges to uninstall"
+
+
+if [ "$(id -u)" -ne 0 ]; then
+        echo "[!] This script must run as root" >&2
         exit 1
-    fi
-fi
+
+else
 
 readonly PI_HOLE_FILES_DIR="/var/lib/pihole-system/etc/.pihole"
 PH_TEST="true"
@@ -185,3 +177,5 @@ while true; do
         * ) removeAndPurge; break;;
     esac
 done
+
+fi
