@@ -1869,7 +1869,7 @@ installPihole() {
         if [[ ! -d "/var/lib/pihole-system/var/www/html" ]]; then
             # make the Web directory if necessary
             mkdir -p /var/lib/pihole-system/var/www/html
-            ln -s /var/lib/pihole-system/var/www/html /var/www/html
+            # ln -s /var/lib/pihole-system/var/www/html /var/www/html
         fi
 
         if [[ "${INSTALL_WEB_SERVER}" == true ]]; then
