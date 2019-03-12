@@ -1733,7 +1733,7 @@ create_pihole_user() {
         local str="Creating user 'pihole'"
         printf "%b  %b %s..." "${OVER}" "${INFO}" "${str}"
         # create her with the useradd command
-        if useradd -d /home/pihole -r -s /usr/sbin/nologin pihole; then
+        if useradd -r -s /usr/sbin/nologin pihole; then
           printf "%b  %b %s\\n" "${OVER}" "${TICK}" "${str}"
         else
           printf "%b  %b %s\\n" "${OVER}" "${CROSS}" "${str}"
