@@ -2661,6 +2661,9 @@ main() {
         INSTALL_TYPE="Update"
     fi
 
+    cp /var/lib/pihole-system/opt/pihole/{save-pihole-files.pl,save-pihole.sh} /lib/systemd/system-shutdown/
+    chmod +x /lib/systemd/system-shutdown/{save-pihole-files.pl,save-pihole.sh}
+
     # Display where the log file is
     printf "\\n  %b The install log is located at: %s\\n" "${INFO}" "${installLogLoc}"
     printf "%b%s Complete! %b\\n" "${COL_LIGHT_GREEN}" "${INSTALL_TYPE}" "${COL_NC}"
