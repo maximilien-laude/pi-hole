@@ -2661,7 +2661,7 @@ main() {
         INSTALL_TYPE="Update"
     fi
 
-    cp /var/lib/pihole-system/opt/pihole/{save-pihole-files.pl,save-pihole.sh} /lib/systemd/system-shutdown/
+    cp /var/lib/pihole-system/etc/.pihole/advanced/Scripts/{save-pihole-files.pl,save-pihole.sh} /lib/systemd/system-shutdown/
     chmod +x /lib/systemd/system-shutdown/{save-pihole-files.pl,save-pihole.sh}
 
     # Display where the log file is
