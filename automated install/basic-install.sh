@@ -53,6 +53,7 @@ useUpdateVars=false
 
 adlistFile="/var/lib/pihole-system/etc/pihole/adlists.list"
 regexFile="/var/lib/pihole-system/etc/pihole/regex.list"
+
 # Pi-hole needs an IP address; to begin, these variables are empty since we don't know what the IP is until
 # this script can run
 IPV4_ADDRESS=""
@@ -1356,6 +1357,21 @@ installConfigs() {
         # Let PHP edit the regex file, if installed
         install -o pihole -g "${LIGHTTPD_GROUP:-pihole}" -m 664 /dev/null "${regexFile}"
     fi
+    
+    blacklistfile="/var/lib/pihole-system/etc/pihole/blacklist.txt"
+    whitelistfile="/var/lib/pihole-system/etc/pihole/whitelist.txt"
+    
+    # Install list
+    if [[ ! -f "${blacklistfile}" && ! -f "${whitelistfile}" ]]; then
+       
+        lists=( "${blacklistfile}" "${whitelistfile}" )
+        for i in "${lists[@]}"
+        do
+          install -o root -g root -m 664 /dev/null  ${i}
+        done
+        
+    fi    
+    
     # If the user chose to install the dashboard,
     if [[ "${INSTALL_WEB_SERVER}" == true ]]; then
         # and if the Web server conf directory does not exist,
@@ -1380,10 +1396,6 @@ installConfigs() {
         # Make the directories if they do not exist and set the owners
         mkdir -p /var/run/lighttpd
         chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/run/lighttpd
-        # mkdir -p /var/cache/lighttpd/compress
-        # chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/cache/lighttpd/compress
-        # mkdir -p /var/cache/lighttpd/uploads
-        # chown ${LIGHTTPD_USER}:${LIGHTTPD_GROUP} /var/cache/lighttpd/uploads
     fi
 }
 
@@ -1721,7 +1733,7 @@ create_pihole_user() {
         local str="Creating user 'pihole'"
         printf "%b  %b %s..." "${OVER}" "${INFO}" "${str}"
         # create her with the useradd command
-        if useradd -r -s /usr/sbin/nologin pihole; then
+        if useradd -d /home/pihole -r -s /usr/sbin/nologin pihole; then
           printf "%b  %b %s\\n" "${OVER}" "${TICK}" "${str}"
         else
           printf "%b  %b %s\\n" "${OVER}" "${CROSS}" "${str}"
@@ -2453,18 +2465,17 @@ main() {
     # Check for supported distribution
     distro_check
     
-    if [ -d "/var/log" ]; then
+    if [[ -d "/var/log" ]]; then
     
         rm -rf /var/log
         ln -s /tmp /var/log
     
-    else
+    elif [[ ! -d "/var/log" ]]; then 
     
         ln -s /tmp /var/log
     
     fi
-      
-
+   
     # If the setup variable file exists,
     if [[ -f "${setupVars}" ]]; then
         # if it's running unattended,
