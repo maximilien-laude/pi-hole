@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ ! -e "/lib/systemd/system-shutdown/save-pihole-files.pl" ]]
+if [[ ! -e "/lib/systemd/system-shutdown/save-pihole-files.pl" ]];then
 
         echo "can't save pihole !"
         exit 1
