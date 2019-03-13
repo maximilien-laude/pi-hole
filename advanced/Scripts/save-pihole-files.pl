@@ -108,10 +108,10 @@ elsif ( -e $pihole_config_tar_gz ){
 							
 				unlink $pihole_config_tar_gz ;
 				unlink $pihole_number_words_save;
-                open(my $fw, '>', "$pihole_number_words_save");
+                		open(my $fw, '>', "$pihole_number_words_save");
 				print $fw "$testing_domains_count";
-                close $fw;
-
+                		close $fw;
+				
 			}
 			
 			else {
