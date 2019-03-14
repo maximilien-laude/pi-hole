@@ -49,11 +49,11 @@ sub save_total {
 		my $total = total_words("$list");
        		$total_increment += $total ;
 				
-    }
+    	}
 
-    open(my $fw, '>', "$file_to_write" );
+    	open(my $fw, '>', "$file_to_write" );
 	print $fw "$total_increment";
-    close $fw;
+    	close $fw;
 
 }
 
