@@ -53,6 +53,8 @@ useUpdateVars=false
 
 adlistFile="/var/lib/pihole-system/etc/pihole/adlists.list"
 regexFile="/var/lib/pihole-system/etc/pihole/regex.list"
+pihole_save_script="save-pihole-files.pl"
+pihole_shutdown_script="save-pihole.sh"
 
 # Pi-hole needs an IP address; to begin, these variables are empty since we don't know what the IP is until
 # this script can run
@@ -2661,11 +2663,13 @@ main() {
         INSTALL_TYPE="Update"
     fi
 
-    cp /var/lib/pihole-system/etc/.pihole/advanced/Scripts/{save-pihole-files.pl,save-pihole.sh} /lib/systemd/system-shutdown/
-    chmod +x /lib/systemd/system-shutdown/{save-pihole-files.pl,save-pihole.sh}
+    if [[ ! -e "${pihole_save_script}" && ! -e "${pihole_shutdown_script}" ]]; then
     
-    shutdown -r 0
+          cp /var/lib/pihole-system/etc/.pihole/advanced/Scripts/{${pihole_save_script},${pihole_shutdown_script}} /lib/systemd/system-shutdown/
+          chmod +x /lib/systemd/system-shutdown/{${pihole_save_script},${pihole_shutdown_script}}
   
+    fi
+    
     # Display where the log file is
     printf "\\n  %b The install log is located at: %s\\n" "${INFO}" "${installLogLoc}"
     printf "%b%s Complete! %b\\n" "${COL_LIGHT_GREEN}" "${INSTALL_TYPE}" "${COL_NC}"
