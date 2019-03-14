@@ -70,7 +70,7 @@ if ( ! -d $save_dir ) {
 
 if ( ! -e $pihole_system_tar_gz ){
 
-	system("tar -zcf $pihole_system_tar_gz --exclude='/var/lib/pihole-system/etc/pihole' /var/lib/pihole-system/ ");
+	system("tar -zcf $pihole_system_tar_gz -C /var/lib/pihole-system --exclude='/var/lib/pihole-system/etc/pihole' .");
 
 }
 
@@ -80,7 +80,7 @@ if ( ! -e $pihole_system_tar_gz ){
 
 if ( ! -e $pihole_config_tar_gz ){
 	
-    system("tar -zcf $pihole_config_tar_gz /var/lib/pihole-system/etc/pihole");
+    system("tar -zcf $pihole_config_tar_gz -C /var/lib/pihole-system/etc/pihole .");
 	
 }
 
@@ -122,7 +122,7 @@ elsif ( -e $pihole_config_tar_gz ){
 						
 		}
 		
-		system("tar -zcf $pihole_config_tar_gz /var/lib/pihole-system/etc/pihole");
+		system("tar -zcf $pihole_config_tar_gz -C /var/lib/pihole-system/etc/pihole .");
 		exit 0
 				
 	}
