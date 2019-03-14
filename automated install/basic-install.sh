@@ -2680,8 +2680,8 @@ main() {
     systemctl enable pihole-untar-boot.service 
     systemctl daemon-reload
     install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system/pihole-shutdown-save.service"
-    systemctl start pihole-shutdown.service
-    systemctl enable pihole-shutdown.service 
+    systemctl start pihole-shutdown-save.service
+    systemctl enable pihole-shutdown-save.service
     systemctl daemon-reload
     
     #echo "tmpfs  /var/lib/php/sessions  tmpfs defaults,noatime,nosuid,mode=0700,size=1m 0   0" >> /etc/fstab
