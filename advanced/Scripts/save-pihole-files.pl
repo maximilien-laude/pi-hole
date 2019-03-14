@@ -60,7 +60,7 @@ sub save_total {
 
 if ( ! -d $save_dir ) {
 
-	mkdir $save_dir, 0755;
+	mkdir $save_dir, 0600;
 
 }
 
