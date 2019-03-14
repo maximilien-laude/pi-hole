@@ -111,7 +111,7 @@ else {
 						
 		}
 		
-		system("tar -zcf $pihole_system_tar_gz -C /var/lib/pihole-system/etc/pihole .");
+		system("tar -zvcf $pihole_system_tar_gz -C /var/lib/pihole-system .");
 		exit 0
 				
 	}
