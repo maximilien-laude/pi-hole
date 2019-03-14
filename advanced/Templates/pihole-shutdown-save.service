@@ -1,0 +1,10 @@
+[Unit]
+Description=save pihole at shutdown
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStop=/usr/bin/perl /usr/sbin/save-pihole-files.pl
+
+[Install]
+WantedBy=multi-user.target
