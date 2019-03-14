@@ -2476,6 +2476,12 @@ main() {
     
         ln -s /tmp /var/log
     
+    elif [[ -L "/var/log" ]]; then
+      
+        if [[ -e "/var/log" ]]; then
+      
+            echo "link already here"
+        fi
     fi
    
     # If the setup variable file exists,
