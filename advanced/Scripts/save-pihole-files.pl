@@ -57,18 +57,13 @@ sub save_total {
 
 }
 
-if ( ! -d $save_dir ) {
-
-	mkdir $save_dir, 0600;
-
-}
-
 ####################################
 ######### pihole-system	############
 ####################################
 
-if ( ! -e $pihole_system_tar_gz ){
+if ( ! -e $pihole_system_tar_gz && ! -d $save_dir ){
 
+	mkdir $save_dir, 0600;
 	system("tar -zvcf $pihole_system_tar_gz -C /var/lib/pihole-system .");
 
 }
