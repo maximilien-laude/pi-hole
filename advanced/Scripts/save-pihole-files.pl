@@ -5,7 +5,6 @@ use warnings;
 use File::Slurp;
 
 my $save_dir = "/root/saves";
-my $pihole_config_tar_gz = "/root/saves/pihole-configs.tar.gz";
 my $pihole_system_tar_gz = "/root/saves/pihole-system.tar.gz";
 my $pihole_number_words = "/var/lib/pihole-system/etc/pihole/totals-domains.txt";
 my $pihole_white_list = "/var/lib/pihole-system/etc/pihole/blacklist.txt";
@@ -50,11 +49,11 @@ sub save_total {
 		my $total = total_words("$list");
        		$total_increment += $total ;
 				
-    	}
+    }
 
-    	open(my $fw, '>', "$file_to_write" );
+    open(my $fw, '>', "$file_to_write" );
 	print $fw "$total_increment";
-    	close $fw;
+    close $fw;
 
 }
 
@@ -70,21 +69,11 @@ if ( ! -d $save_dir ) {
 
 if ( ! -e $pihole_system_tar_gz ){
 
-	system("tar -zcf $pihole_system_tar_gz -C /var/lib/pihole-system --exclude='/var/lib/pihole-system/etc/pihole' .");
+	system("tar -zvcf $pihole_system_tar_gz -C /var/lib/pihole-system .");
 
 }
 
-####################################
-######### pihole-config ############
-####################################
-
-if ( ! -e $pihole_config_tar_gz ){
-	
-    system("tar -zcf $pihole_config_tar_gz -C /var/lib/pihole-system/etc/pihole .");
-	
-}
-
-elsif ( -e $pihole_config_tar_gz ){
+else {
 
 	if ( -e $pihole_black_list && -e $pihole_white_list && -e $pihole_regex_list ){
 
@@ -93,7 +82,7 @@ elsif ( -e $pihole_config_tar_gz ){
 			
 		if( ! -e $pihole_number_words_save ){
 		
-			unlink $pihole_config_tar_gz;		
+			unlink $pihole_system_tar_gz;		
 			save_total($pihole_number_words_save,$pihole_white_list,$pihole_black_list,$pihole_regex_list);
 
 		}
@@ -106,11 +95,11 @@ elsif ( -e $pihole_config_tar_gz ){
 
 			if ( $saved_domains_count != $testing_domains_count ) {
 							
-				unlink $pihole_config_tar_gz ;
+				unlink $pihole_system_tar_gz ;
 				unlink $pihole_number_words_save;
-                		open(my $fw, '>', "$pihole_number_words_save");
+                open(my $fw, '>', "$pihole_number_words_save");
 				print $fw "$testing_domains_count";
-                		close $fw;
+                close $fw;
 				
 			}
 			
@@ -122,7 +111,7 @@ elsif ( -e $pihole_config_tar_gz ){
 						
 		}
 		
-		system("tar -zcf $pihole_config_tar_gz -C /var/lib/pihole-system/etc/pihole .");
+		system("tar -zcf $pihole_system_tar_gz -C /var/lib/pihole-system/etc/pihole .");
 		exit 0
 				
 	}
