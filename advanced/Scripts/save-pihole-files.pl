@@ -4,8 +4,7 @@ use strict;
 use warnings;
 use File::Slurp;
 
-my $save_dir = "/root/saves";
-my $pihole_system_tar_gz = "/root/saves/pihole-system.tar.gz";
+my $pihole_system_tar_gz = "/root/pihole-system.tar.gz";
 my $pihole_number_words = "/var/lib/pihole-system/etc/pihole/totals-domains.txt";
 my $pihole_white_list = "/var/lib/pihole-system/etc/pihole/blacklist.txt";
 my $pihole_black_list = "/var/lib/pihole-system/etc/pihole/whitelist.txt";
@@ -61,10 +60,9 @@ sub save_total {
 ######### pihole-system	############
 ####################################
 
-if ( ! -e $pihole_system_tar_gz && ! -d $save_dir ){
+if ( ! -e $pihole_system_tar_gz  ){
 
-	mkdir $save_dir, 0600;
-	system("tar -zvcf $pihole_system_tar_gz -C /var/lib/pihole-system .");
+	system("tar -zcf $pihole_system_tar_gz -C /var/lib/pihole-system .");
 
 }
 
@@ -92,9 +90,9 @@ else {
 							
 				unlink $pihole_system_tar_gz ;
 				unlink $pihole_number_words_save;
-                open(my $fw, '>', "$pihole_number_words_save");
+                		open(my $fw, '>', "$pihole_number_words_save");
 				print $fw "$testing_domains_count";
-                close $fw;
+                		close $fw;
 				
 			}
 			
@@ -106,7 +104,7 @@ else {
 						
 		}
 		
-		system("tar -zvcf $pihole_system_tar_gz -C /var/lib/pihole-system .");
+		system("tar -zcf $pihole_system_tar_gz -C /var/lib/pihole-system .");
 		exit 0
 				
 	}
