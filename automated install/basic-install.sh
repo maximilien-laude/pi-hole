@@ -54,7 +54,6 @@ useUpdateVars=false
 adlistFile="/var/lib/pihole-system/etc/pihole/adlists.list"
 regexFile="/var/lib/pihole-system/etc/pihole/regex.list"
 pihole_save_script="save-pihole-files.pl"
-pihole_shutdown_script="save-pihole.sh"
 
 # Pi-hole needs an IP address; to begin, these variables are empty since we don't know what the IP is until
 # this script can run
@@ -2669,10 +2668,9 @@ main() {
         INSTALL_TYPE="Update"
     fi
 
-    if [[ ! -e "${pihole_save_script}" && ! -e "${pihole_shutdown_script}" ]]; then
+    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" ]]; then
     
-          cp /var/lib/pihole-system/etc/.pihole/advanced/Scripts/{${pihole_save_script},${pihole_shutdown_script}} /lib/systemd/system-shutdown/
-          chmod +x /lib/systemd/system-shutdown/{${pihole_save_script},${pihole_shutdown_script}}
+          install -T -m 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" "/usr/sbin/save-pihole-files.pl"
   
     fi
       
@@ -2680,6 +2678,11 @@ main() {
     install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" "/lib/systemd/system/pihole-untar-boot.service"
     systemctl start pihole-untar-boot.service
     systemctl enable pihole-untar-boot.service 
+    systemctl daemon-reload
+    install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown.service" "/lib/systemd/system/pihole-shutdown.service"
+    systemctl start pihole-shutdown.service
+    systemctl enable pihole-shutdown.service 
+    systemctl daemon-reload
     
     #echo "tmpfs  /var/lib/php/sessions  tmpfs defaults,noatime,nosuid,mode=0700,size=1m 0   0" >> /etc/fstab
     echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0700,size=200m  0  0" >> /etc/fstab
