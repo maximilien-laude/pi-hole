@@ -9,36 +9,11 @@ if [ "$(id -u)" -ne 0 ]; then
 
 else
 
-	readonly PI_HOLE_FILES_DIR="/var/lib/pihole-system/etc/.pihole"
-	PH_TEST="true"
-	source "${PI_HOLE_FILES_DIR}/automated install/basic-install.sh"
-	# setupVars set in basic-install.sh
-	source "${setupVars}"
-
-	# distro_check() sourced from basic-install.sh
-	distro_check
-
-	DEPS=("${PIHOLE_DEPS[@]}")
-	if [[ "${INSTALL_WEB_SERVER}" == true ]]; then
-    	# Install the Web dependencies
-    		DEPS+=("${PIHOLE_WEB_DEPS[@]}")
-	fi
-
 	package_check() {
 
         	dpkg-query -W -f='${Status}' "$1" 2>/dev/null | grep -c "ok installed"
 
 	}
-
- 	# Purge dependencies
-    	echo ""
-    	for i in "${DEPS[@]}"; do
-        
-                echo -ne "  ${INFO} Removing ${i}..."
-                apt -y remove --purge ${i} &> /dev/null
-                echo -e "${OVER}  ${INFO} Removed ${i}"
-
-    	done
 
 	# Attempt to preserve backwards compatibility with older versions
     	# to guarantee no additional changes were made to /etc/crontab after
@@ -131,5 +106,7 @@ else
 	echo "${COL_LIGHT_GREEN}Uninstallation Complete! ${COL_NC}"
 
 fi
+
+
 
 
