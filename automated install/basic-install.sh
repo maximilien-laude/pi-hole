@@ -2673,17 +2673,25 @@ main() {
           install -T -m 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" "/usr/sbin/save-pihole-files.pl"
   
     fi
+    
+    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" ]]; then 
+    
+          install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" "/lib/systemd/system/pihole-untar-boot.service"
+          systemctl enable pihole-untar-boot.service 
+          systemctl daemon-reload
+    
+    fi
+    
+    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" ]]; then
+    
+          install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system/pihole-shutdown-save.service"
+          systemctl enable pihole-shutdown-save.service
+          systemctl daemon-reload
+    
+    fi
       
     install -T -m 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh" "/usr/sbin/pihole-untar.sh"
-    install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" "/lib/systemd/system/pihole-untar-boot.service"
-    systemctl start pihole-untar-boot.service
-    systemctl enable pihole-untar-boot.service 
-    systemctl daemon-reload
-    install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system/pihole-shutdown-save.service"
-    systemctl start pihole-shutdown-save.service
-    systemctl enable pihole-shutdown-save.service
-    systemctl daemon-reload
-    
+     
     #echo "tmpfs  /var/lib/php/sessions  tmpfs defaults,noatime,nosuid,mode=0700,size=1m 0   0" >> /etc/fstab
     echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0700,size=200m  0  0" >> /etc/fstab
     
