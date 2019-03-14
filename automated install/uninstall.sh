@@ -51,11 +51,11 @@ else
 
     	fi
 
-    	rm -f /var/lib/pihole-system &> /dev/null
-	rm -f /usr/local/bin/pihole &> /dev/null
-        rm -f /etc/bash_completion.d/pihole &> /dev/null
-        rm -f /etc/sudoers.d/pihole &> /dev/null
-        rm -f /root/pihole-system.tar.gz &> /dev/null
+    	rm -rf /var/lib/pihole-system &> /dev/null
+	rm -rf /usr/local/bin/pihole &> /dev/null
+        rm -rf /etc/bash_completion.d/pihole &> /dev/null
+        rm -rf /etc/sudoers.d/pihole &> /dev/null
+        rm -rf /root/pihole-system.tar.gz &> /dev/null
 	rm -rf /lib/systemd/system-shutdown/* &> /dev/null
 	unlink /etc/pihole &> /dev/null
         unlink /etc/dnsmasq.d &> /dev/null
