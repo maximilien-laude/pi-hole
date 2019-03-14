@@ -2679,7 +2679,7 @@ main() {
     systemctl start pihole-untar-boot.service
     systemctl enable pihole-untar-boot.service 
     systemctl daemon-reload
-    install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown.service" "/lib/systemd/system/pihole-shutdown.service"
+    install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system/pihole-shutdown-save.service"
     systemctl start pihole-shutdown.service
     systemctl enable pihole-shutdown.service 
     systemctl daemon-reload
