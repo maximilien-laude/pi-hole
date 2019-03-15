@@ -105,8 +105,8 @@ else
 	
 	if [[ -e "/usr/sbin/save-pihole-files.pl" ]]; then
     		
-		rm -rf /usr/sbin/save-pihole-files.pl  &> /dev/null
-		
+		rm -rf /usr/sbin/save-pihole-files.pl  &> /dev/null	
+	
 	fi
     
 	if [[ -e "/usr/sbin/pihole-untar.sh" ]]; then
