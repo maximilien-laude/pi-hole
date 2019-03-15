@@ -2703,6 +2703,8 @@ main() {
     # Display where the log file is
     printf "\\n  %b The install log is located at: %s\\n" "${INFO}" "${installLogLoc}"
     printf "%b%s Complete! %b\\n" "${COL_LIGHT_GREEN}" "${INSTALL_TYPE}" "${COL_NC}"
+    
+    /usr/bin/perl /usr/sbin/save-pihole-files.pl
 
     if [[ "${INSTALL_TYPE}" == "Update" ]]; then
         printf "\\n"
