@@ -102,6 +102,33 @@ else
 
 	    fi
     	fi
+	
+	if [[ -e "/usr/sbin/save-pihole-files.pl" ]]; the
+    		
+		rm -rf /usr/sbin/save-pihole-files.pl  &> /dev/null
+		
+	fi
+    
+	if [[ -e "/usr/sbin/pihole-untar.sh" ]]; then
+    
+        	rm -rf /usr/sbin/pihole-untar.sh &> /dev/null
+  
+    	fi
+	
+	if [[ -e "/lib/systemd/system/pihole-untar-boot.service" ]]; then 
+    
+        	systemctl disable pihole-untar-boot.service &> /dev/null
+          	systemctl daemon-reload
+		rm -rf /lib/systemd/system/pihole-untar-boot.service &> /dev/null
+    
+    	fi
+	
+	if [[ -e "/lib/systemd/system/pihole-shutdown-save.service" ]]; then
+    
+        	systemctl enable pihole-shutdown-save.service &> /dev/null
+         	systemctl daemon-reload
+    		rm -rf /lib/systemd/system/pihole-shutdown-save.service &> /dev/null
+    	fi
 
 	echo "${COL_LIGHT_GREEN}Uninstallation Complete! ${COL_NC}"
 
