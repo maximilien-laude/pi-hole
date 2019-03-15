@@ -103,19 +103,19 @@ else
 	    fi
     	fi
 	
-	if [[ -e "/usr/sbin/save-pihole-files.pl" ]]; then
+	if [[ -f "/usr/sbin/save-pihole-files.pl" ]]; then
     		
 		rm -rf /usr/sbin/save-pihole-files.pl  &> /dev/null	
 	
 	fi
     
-	if [[ -e "/usr/sbin/pihole-untar.sh" ]]; then
+	if [[ -f "/usr/sbin/pihole-untar.sh" ]]; then
     
         	rm -rf /usr/sbin/pihole-untar.sh &> /dev/null
   
     	fi
 	
-	if [[ -e "/lib/systemd/system/pihole-untar-boot.service" ]]; then 
+	if [[ -f "/lib/systemd/system/pihole-untar-boot.service" ]]; then 
     
         	systemctl disable pihole-untar-boot.service &> /dev/null
           	systemctl daemon-reload
@@ -123,7 +123,7 @@ else
     
     	fi
 	
-	if [[ -e "/lib/systemd/system/pihole-shutdown-save.service" ]]; then
+	if [[ -f "/lib/systemd/system/pihole-shutdown-save.service" ]]; then
     
         	systemctl enable pihole-shutdown-save.service &> /dev/null
          	systemctl daemon-reload
