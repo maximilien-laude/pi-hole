@@ -129,8 +129,21 @@ else
          	systemctl daemon-reload
     		rm -rf /lib/systemd/system/pihole-shutdown-save.service &> /dev/null
     	fi
+	
+	if df -h | grep -oP '(/var/lib/php/sessions)'; then
+      
+        	sed -i "\@^tmpfs  /var/lib/php/sessions   tmpfs defaults,noatime,nosuid,nodev,size=50K 0 0@d" /etc/fstab
+      
+      	fi
 
+	if df -h | grep -oP '(/var/lib/pihole-system)'; then
+      
+        	sed -i "\@^tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0755,size=200m  0  0@d" /etc/fstab
+      
+      	fi
+	
 	echo "${COL_LIGHT_GREEN}Uninstallation Complete! ${COL_NC}"
+	shutdown -r 0
 
 fi
 
