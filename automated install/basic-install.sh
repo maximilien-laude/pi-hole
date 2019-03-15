@@ -2670,7 +2670,14 @@ main() {
 
     if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" ]]; then
     
-          install -T -m 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" "/usr/sbin/save-pihole-files.pl"
+          cp "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" "/usr/sbin/"
+          chmod +x "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl"
+    fi
+    
+    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh" ]]; then
+    
+          cp "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh" "/usr/sbin/"
+          chmod +x "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh"
   
     fi
     
@@ -2690,8 +2697,6 @@ main() {
     
     fi
       
-    install -T -m 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh" "/usr/sbin/pihole-untar.sh"
-     
     #echo "tmpfs  /var/lib/php/sessions  tmpfs defaults,noatime,nosuid,mode=0700,size=1m 0   0" >> /etc/fstab
     echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0700,size=200m  0  0" >> /etc/fstab
    
