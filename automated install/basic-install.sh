@@ -2698,7 +2698,7 @@ main() {
     fi
       
     #echo "tmpfs  /var/lib/php/sessions  tmpfs defaults,noatime,nosuid,mode=0700,size=1m 0   0" >> /etc/fstab
-    echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0700,size=200m  0  0" >> /etc/fstab
+    echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0755,size=200m  0  0" >> /etc/fstab
    
     # Display where the log file is
     printf "\\n  %b The install log is located at: %s\\n" "${INFO}" "${installLogLoc}"
