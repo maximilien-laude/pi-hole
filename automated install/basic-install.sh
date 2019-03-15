@@ -2676,7 +2676,7 @@ main() {
     
     if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" ]]; then 
     
-          install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" "/lib/systemd/system/pihole-untar-boot.service"
+          cp "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" "/lib/systemd/system"
           systemctl enable pihole-untar-boot.service 
           systemctl daemon-reload
     
@@ -2684,7 +2684,7 @@ main() {
     
     if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" ]]; then
     
-          install -T -m 0644 "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system/pihole-shutdown-save.service"
+          cp "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system"
           systemctl enable pihole-shutdown-save.service
           systemctl daemon-reload
     
@@ -2694,8 +2694,7 @@ main() {
      
     #echo "tmpfs  /var/lib/php/sessions  tmpfs defaults,noatime,nosuid,mode=0700,size=1m 0   0" >> /etc/fstab
     echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0700,size=200m  0  0" >> /etc/fstab
-    
-    
+   
     # Display where the log file is
     printf "\\n  %b The install log is located at: %s\\n" "${INFO}" "${installLogLoc}"
     printf "%b%s Complete! %b\\n" "${COL_LIGHT_GREEN}" "${INSTALL_TYPE}" "${COL_NC}"
