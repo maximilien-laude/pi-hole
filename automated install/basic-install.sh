@@ -2482,6 +2482,16 @@ main() {
             echo "link already here"
         fi
     fi
+    
+    if [[ -d "/var/lib/php/sessions" ]]; then
+      
+      if ! df -h | grep -oP '(/var/lib/php/sessions)'; then
+      
+          echo "tmpfs  /var/lib/php/sessions   tmpfs defaults,noatime,nosuid,nodev,size=70K 0 0" >> /etc/fstab
+      
+      fi
+    
+    fi
    
     # If the setup variable file exists,
     if [[ -f "${setupVars}" ]]; then
@@ -2668,20 +2678,20 @@ main() {
         INSTALL_TYPE="Update"
     fi
 
-    if [[ ! -e "/usr/sbin/save-pihole-files.pl" ]]; then
+    if [[ ! -f "/usr/sbin/save-pihole-files.pl" ]]; then
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" "/usr/sbin/"
           chmod 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl"
     fi
     
-    if [[ ! -e "/usr/sbin/pihole-untar.sh" ]]; then
+    if [[ ! -f "/usr/sbin/pihole-untar.sh" ]]; then
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh" "/usr/sbin/"
           chmod 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh"
   
     fi
     
-    if [[ ! -e "/lib/systemd/system/pihole-untar-boot.service" ]]; then 
+    if [[ ! -f "/lib/systemd/system/pihole-untar-boot.service" ]]; then 
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" "/lib/systemd/system"
           systemctl enable pihole-untar-boot.service 
@@ -2689,16 +2699,23 @@ main() {
     
     fi
     
-    if [[ ! -e "/lib/systemd/system/pihole-shutdown-save.service" ]]; then
+    if [[ ! -f "/lib/systemd/system/pihole-shutdown-save.service" ]]; then
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system"
           systemctl enable pihole-shutdown-save.service
           systemctl daemon-reload
     
     fi
+    
+    if [[ -d "/var/lib/pihole-system" ]]; then
       
-    #echo "tmpfs  /var/lib/php/sessions  tmpfs defaults,noatime,nosuid,mode=0700,size=1m 0   0" >> /etc/fstab
-    echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0755,size=200m  0  0" >> /etc/fstab
+      if ! df -h | grep -oP '(/var/lib/pihole-system)'; then
+      
+          echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0755,size=200m  0  0" >> /etc/fstab
+      
+      fi
+    
+    fi
    
     # Display where the log file is
     printf "\\n  %b The install log is located at: %s\\n" "${INFO}" "${installLogLoc}"
