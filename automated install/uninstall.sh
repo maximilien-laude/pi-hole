@@ -103,7 +103,7 @@ else
 	    fi
     	fi
 	
-	if [[ -e "/usr/sbin/save-pihole-files.pl" ]]; the
+	if [[ -e "/usr/sbin/save-pihole-files.pl" ]]; then
     		
 		rm -rf /usr/sbin/save-pihole-files.pl  &> /dev/null
 		
