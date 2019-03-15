@@ -2668,20 +2668,20 @@ main() {
         INSTALL_TYPE="Update"
     fi
 
-    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" ]]; then
+    if [[ ! -e "/usr/sbin/save-pihole-files.pl" ]]; then
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl" "/usr/sbin/"
-          chmod +x "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl"
+          chmod 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/save-pihole-files.pl"
     fi
     
-    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh" ]]; then
+    if [[ ! -e "/usr/sbin/pihole-untar.sh" ]]; then
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh" "/usr/sbin/"
-          chmod +x "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh"
+          chmod 0755 "${PI_HOLE_LOCAL_REPO}/advanced/Scripts/pihole-untar.sh"
   
     fi
     
-    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" ]]; then 
+    if [[ ! -e "/lib/systemd/system/pihole-untar-boot.service" ]]; then 
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-untar-boot.service" "/lib/systemd/system"
           systemctl enable pihole-untar-boot.service 
@@ -2689,7 +2689,7 @@ main() {
     
     fi
     
-    if [[ ! -e "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" ]]; then
+    if [[ ! -e "/lib/systemd/system/pihole-shutdown-save.service" ]]; then
     
           cp "${PI_HOLE_LOCAL_REPO}/advanced/Templates/pihole-shutdown-save.service" "/lib/systemd/system"
           systemctl enable pihole-shutdown-save.service
