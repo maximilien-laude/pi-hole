@@ -2479,18 +2479,8 @@ main() {
       
         if [[ -e "/var/log" ]]; then
       
-            echo "link already here"
+            echo "${INFO} link already here"
         fi
-    fi
-    
-    if [[ -d "/var/lib/php/sessions" ]]; then
-      
-      if ! df -h | grep -oP '(/var/lib/php/sessions)'; then
-      
-          echo "tmpfs  /var/lib/php/sessions   tmpfs defaults,noatime,nosuid,nodev,size=70K 0 0" >> /etc/fstab
-      
-      fi
-    
     fi
    
     # If the setup variable file exists,
