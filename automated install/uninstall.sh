@@ -16,21 +16,7 @@ else
 	}
 
 	if [[ -d "/var/lib/pihole-system" ]];then
-	
-		if id "pihole" &> /dev/null; then
-
-			if userdel -r pihole 2> /dev/null; then
-            
-				echo -e "  ${TICK} Removed 'pihole' user"
-
-			else
-
-				echo -e "  ${CROSS} Unable to remove 'pihole' user and pihole files"
-
-			fi
 			
-		fi
-		
 		rm -rf /var/lib/pihole-system &> /dev/null
 		rm -rf /usr/local/bin/pihole &> /dev/null
 		rm -rf /root/pihole-system.tar.gz &> /dev/null
@@ -68,22 +54,11 @@ else
 
     	package_check lighttpd > /dev/null
     
-	if [[ $? -eq 1 ]]; then
+	if [ -f /etc/lighttpd/lighttpd.conf.orig ]; then
 
-       	 	rm -rf /etc/lighttpd/ &> /dev/null
-       	 	echo -e "  ${TICK} Removed lighttpd"
+        	mv /etc/lighttpd/lighttpd.conf.orig /etc/lighttpd/lighttpd.conf
 
-    	else
-
-       		if [ -f /etc/lighttpd/lighttpd.conf.orig ]; then
-
-        	 	mv /etc/lighttpd/lighttpd.conf.orig /etc/lighttpd/lighttpd.conf
-
-        	fi
-
-    	fi
-
-    	
+        fi
 
 	# Remove FTL
     	if command -v pihole-FTL &> /dev/null; then
@@ -105,24 +80,24 @@ else
        		echo -e "${OVER}  ${TICK} Removed pihole-FTL"
 
     	fi
-
+	
 	if [[ -f /usr/local/share/man/man8/pihole.8 ]]; then
 
-       	rm -f /usr/local/share/man/man8/pihole.8 /usr/local/share/man/man8/pihole-FTL.8 /usr/local/share/man/man5/pihole-FTL.conf.5
-       	mandb -q &>/dev/null
-       	echo -e "  ${TICK} Removed pihole man page"
+       		rm -f /usr/local/share/man/man8/pihole.8 /usr/local/share/man/man8/pihole-FTL.8 /usr/local/share/man/man5/pihole-FTL.conf.5
+       		mandb -q &>/dev/null
+       		echo -e "  ${TICK} Removed pihole man page"
 
 	fi
 
 	if [[ -f "/usr/sbin/save-pihole-files.pl" ]]; then
     		
 		rm -rf /usr/sbin/save-pihole-files.pl  &> /dev/null	
-	
+		
 	fi
     
 	if [[ -f "/usr/sbin/pihole-untar.sh" ]]; then
     
-       	rm -rf /usr/sbin/pihole-untar.sh &> /dev/null
+       		rm -rf /usr/sbin/pihole-untar.sh &> /dev/null
   
    	fi
 	
@@ -130,28 +105,43 @@ else
     
         	systemctl disable pihole-untar-boot.service &> /dev/null
           	systemctl daemon-reload
-			rm -rf /lib/systemd/system/pihole-untar-boot.service &> /dev/null
+		rm -rf /lib/systemd/system/pihole-untar-boot.service &> /dev/null
     
-    fi
+    	fi
 	
 	if [[ -f "/lib/systemd/system/pihole-shutdown-save.service" ]]; then
     
         	systemctl enable pihole-shutdown-save.service &> /dev/null
          	systemctl daemon-reload
     		rm -rf /lib/systemd/system/pihole-shutdown-save.service &> /dev/null
-    fi
+   	
+	fi
 	
 	if df -h | grep -oP '(/var/lib/php/sessions)'; then
       
         	sed -i "\@^tmpfs  /var/lib/php/sessions   tmpfs defaults,noatime,nosuid,nodev,size=50K 0 0@d" /etc/fstab
       
-    fi
+    	fi
 
 	if df -h | grep -oP '(/var/lib/pihole-system)'; then
       
         	sed -i "\@^tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0755,size=200m  0  0@d" /etc/fstab
       
-    fi
+    	fi
+	
+	if id "pihole" &> /dev/null; then
+
+		if userdel -r pihole 2> /dev/null; then
+            
+			echo -e "  ${TICK} Removed 'pihole' user"
+
+		else
+
+			echo -e "  ${CROSS} Unable to remove 'pihole' user and pihole files"
+
+		fi
+			
+	fi
 	
 	echo "${COL_LIGHT_GREEN}Uninstallation Complete! ${COL_NC}"
 	shutdown -r 0
