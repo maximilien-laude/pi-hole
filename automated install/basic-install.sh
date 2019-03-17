@@ -2709,9 +2709,19 @@ main() {
     
     if [[ -d "/var/lib/pihole-system" ]]; then
       
-      if ! df -h | grep -oP '(/var/lib/pihole-system)'; then
+      if ! df -h | grep -oP '(/var/lib/pihole-system)' &> /dev/null; then
       
           echo "tmpfs  /var/lib/pihole-system  tmpfs defaults,noatime,nosuid,mode=0755,size=200m  0  0" >> /etc/fstab
+      
+      fi
+    
+    fi
+    
+    if [[ -d "/var/lib/php/sessions" ]]; then
+      
+      if ! df -h | grep -oP '(/var/lib/php/sessions)' &> /dev/null; then
+      
+          echo "tmpfs  /var/lib/php/sessions   tmpfs defaults,noatime,nosuid,nodev,size=50K 0 0" >> /etc/fstab
       
       fi
     
